@@ -57,3 +57,33 @@ SELECT EXTRACT(HOUR FROM NOW()::TIME);
 SELECT EXTRACT(HOUR FROM NOW()::DATE); --ERROR
 
 SELECT EXTRACT(SECOND FROM NOW()::TIME);
+
+SELECT AGE(NOW(),'1998-01-04'); -- Calc age (from , to)
+
+-- Primary key is a unique constraint i.e it won't let us create duplicate id
+INSERT INTO MOCK_DATA (id,first_name,last_name,gender,dob,country) VALUES(1001,'munavar','hussain','Male','1998-01-04','India');
+-- Trying to add id which is already in our table
+
+ALTER TABLE MOCK_DATA DROP CONSTRAINT primary_key_pkey; --let's drop the primary key constraint
+
+INSERT INTO MOCK_DATA (id,first_name,last_name,gender,dob,country) VALUES(1001,'munavar','hussain','Male','1998-01-04','India');
+--Duplicate id can be inserted
+SELECT * FROM MOCK_DATA WHERE id=1001; --Check
+
+ALTER TABLE MOCK_DATA ADD CONSTRAINT primary_key_pkey PRIMARY KEY (id); -- Trying to Add primary key constraint
+
+DELETE FROM MOCK_DATA; -- DANGER!!!! Deletes all records
+
+DELETE FROM MOCK_DATA WHERE id=1001;  -- Delete all duplicate
+
+SELECT * FROM MOCK_DATA WHERE id=1001; --Check
+--Add again 
+INSERT INTO MOCK_DATA (id,first_name,last_name,gender,dob,country) VALUES(1001,'munavar','hussain','Male','1998-01-04','India');
+
+ALTER TABLE MOCK_DATA ADD CONSTRAINT primary_key_pkey PRIMARY KEY (id); -- Trying to Add primary key constraint
+
+ALTER TABLE MOCK_DATA ADD CONSTRAINT unique_email UNIQUE (email); -- Add unique constraint
+-- Try to add new id with same email
+INSERT INTO MOCK_DATA (id,first_name,last_name,gender,dob,country,email) VALUES(1002,'munavar','hussain','Male','1998-01-04','India','daxup0@pcworld.com');
+
+ALTER TABLE MOCK_DATA DROP CONSTRAINT unique_email; -- Delete unique constraint
