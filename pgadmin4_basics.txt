@@ -1,0 +1,25 @@
+Servers				- There can be multiple servers on a pc running on different ports and they occupy different location.
+
+Database			- Container for objects in database management.
+
+Table				- Stores data in form of rows and columns.
+
+Schema				- Logical container that allows/denies access to tables for different users.
+
+Tablespace			- Storage location where data is stored. Pre-defined spaces in postgres are pg_default (stores users data) and pg_global (stores system related data).
+
+Views				- Virtual table. Protects certain records from restricted users. Queries can be run just like a table.
+
+Functions			- Reusable SQL commands.
+
+Cast				- Convert one data type to another. Used in combination with functions.
+
+Sequences			- Manage auto incrementing columns.
+
+Extention			- Wrap objects into single units.
+
+  
+
+ 
+
+ 
