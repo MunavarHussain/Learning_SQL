@@ -87,3 +87,20 @@ ALTER TABLE MOCK_DATA ADD CONSTRAINT unique_email UNIQUE (email); -- Add unique 
 INSERT INTO MOCK_DATA (id,first_name,last_name,gender,dob,country,email) VALUES(1002,'munavar','hussain','Male','1998-01-04','India','daxup0@pcworld.com');
 
 ALTER TABLE MOCK_DATA DROP CONSTRAINT unique_email; -- Delete unique constraint
+
+UPDATE MOCK_DATA SET email = 'armunavarhussain.be@gmail.com' WHERE id = '1001'; -- Update record use comma for multiple column values. Remember to include where clause.
+--Error below
+INSERT INTO MOCK_DATA (id,first_name,last_name,gender,dob,country) VALUES(1001,'munavar','hussain','Male','1998-01-04','India');
+
+INSERT INTO MOCK_DATA (id,first_name,last_name,gender,dob,country)
+VALUES(1001,'munavar','hussain','Male','1998-01-04','India')
+ON CONFLICT (id) DO NOTHING; -- No Error also no changes on db.
+--Conflict can only be applied on constraints such as PRIMARY KEY or UNIQUE
+
+--For what so ever if we need to update the latest value,
+INSERT INTO MOCK_DATA (id,first_name,last_name,gender,dob,country,email)
+VALUES(1001,'munavar','hussain','Male','1998-01-04','India','armh@gmail.com')
+ON CONFLICT (id) DO UPDATE SET email=EXCLUDED.email; 
+
+
+
