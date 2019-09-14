@@ -129,3 +129,21 @@ DROP TABLE c_table; -- cannot drop table c_table because other objects depend on
 DROP TABLE p_table;
 
 SELECT * FROM c_table,p_table; -- Table with records duplicated for each record of table 1 with table 2.
+
+-- Inner joins (Records from tables a and b thats shares a same column)
+SELECT * FROM p_table
+JOIN c_table ON p_table.car_id = c_table.c_id;
+
+SELECT * FROM p_table
+JOIN c_table ON car_id = c_id; -- same result but not recommended
+
+SELECT * FROM p_table
+LEFT JOIN c_table ON p_table.car_id = c_table.c_id;
+
+SELECT car_id,fname,car_make,car_model FROM p_table
+LEFT JOIN c_table ON p_table.car_id = c_table.c_id;
+
+-- Export to csv
+--  \copy (SELECT fname,car_make,car_model FROM p_table JOIN c_table ON p_table.car_id = c_table.c_id) TO 'C:/users/AKMH/Desktop/results.csv' DELIMITER ',' CSV HEADER;
+
+SELECT * FROM pg_available_extensions;
