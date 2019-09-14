@@ -102,5 +102,30 @@ INSERT INTO MOCK_DATA (id,first_name,last_name,gender,dob,country,email)
 VALUES(1001,'munavar','hussain','Male','1998-01-04','India','armh@gmail.com')
 ON CONFLICT (id) DO UPDATE SET email=EXCLUDED.email; 
 
+-- create new tables
+CREATE TABLE c_table(
+c_id BIGSERIAL NOT NULL PRIMARY KEY,
+car_make varchar(10) NOT NULL,
+car_model varchar(10) NOT NULL
+);
+CREATE TABLE p_table( -- person table
+p_id BIGSERIAL NOT NULL PRIMARY KEY,
+fname varchar(10) NOT NULL,
+lname varchar(10) NOT NULL,
+country varchar(20) NOT NULL,
+car_id BIGINT REFERENCES c_table (c_id), -- Same datatype must be used, multiple foreign key can be provided(just in case needed)
+UNIQUE(car_id)
+);
+INSERT INTO c_table(car_make,car_model) VALUES ('ford','a'),('maruthi','b');
 
+SELECT * FROM c_table;
 
+INSERT INTO p_table (fname,lname,country,car_id) VALUES ('munavar','hussain','india',2),('ashraf','kutbudeen','india',NULL),('corey','schrafer','us',1);
+
+SELECT * FROM p_table;
+
+DROP TABLE c_table; -- cannot drop table c_table because other objects depend on it
+
+DROP TABLE p_table;
+
+SELECT * FROM c_table,p_table; -- Table with records duplicated for each record of table 1 with table 2.
